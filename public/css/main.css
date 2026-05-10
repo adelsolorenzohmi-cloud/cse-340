@@ -1,31 +1,251 @@
-html,
-body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
+/* 
+    CSE 340 Service Network - Main Stylesheet
+    Professional, Responsive, and Accessible Design
+*/
+
+/* --- Professional Design Variables --- */
+:root {
+    --primary: #2563eb;
+    /* Modern Corporate Blue */
+    --primary-dark: #1d4ed8;
+    --secondary: #0f172a;
+    /* Deep Slate for Headers/Footers */
+    --accent: #38bdf8;
+    /* Light Blue for interactive elements */
+    --bg-page: #f8fafc;
+    /* Clean, soft background */
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    /* High-contrast slate */
+    --text-muted: #475569;
+    /* Muted gray for secondary text */
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --max-width: 1100px;
+}
+
+/* --- Global Reset & Accessibility --- */
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+/* --- Header & Navigation --- */
+nav {
+    background-color: var(--secondary);
+    padding: 1.25rem 2rem;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+nav ul {
+    list-style: none;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--transition);
+    opacity: 0.85;
+    padding: 0.5rem 0;
+}
+
+nav a:hover {
+    opacity: 1;
+    color: var(--accent);
+}
+
+/* --- Main Layout Container --- */
+main {
+    flex: 1;
+    max-width: var(--max-width);
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2.75rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+h2 {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* --- Home Page Specifics --- */
+.main-logo {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 3rem auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+}
+
+.main-logo:hover {
+    transform: scale(1.02);
+}
+
+/* --- Organizations Page (Card Grid) --- */
+/* Targets the UL inside organizations.ejs */
+main h1+p+ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+main h1+p+ul li {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eef2f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+}
+
+main h1+p+ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+
+main h1+p+ul img {
+    height: 60px;
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+/* --- Projects Page (Accent Rows) --- */
+/* Targets the list following the H2 on projects.ejs */
+main h2+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 850px;
+    margin: 2rem auto;
+}
+
+main h2+ul li {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+main h2+ul li:hover {
+    transform: translateX(8px);
+    background-color: var(--white);
+    border-left-color: var(--accent);
+}
+
+/* --- Categories Page (Interactive Pill Tiles) --- */
+main h1+ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+}
+
+main h1+ul li {
+    background: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+main h1+ul li:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+/* --- Footer --- */
+
+footer {
+    background-color: var(--secondary) !important;
+    color: #ffffff !important;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: auto;
+    opacity: 1 !important;
+}
+
+/* --- Global Utilities & Responsive Adjustments --- */
+p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    nav ul {
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    main {
+        margin: 1.5rem auto;
     }
 }

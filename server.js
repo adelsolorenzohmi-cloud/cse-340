@@ -47,6 +47,12 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
+// Projects route
+app.get('/categories', async (req, res) => {
+    const title = 'Categories';
+    res.render('categories', { title });
+});
+
 //Start the server
 
 app.listen(PORT, () => {
