@@ -234,6 +234,21 @@ p {
     text-align: center;
 }
 
+/* --- Organizations styling */
+.org-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.org-contact {
+    margin-top: auto;
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
