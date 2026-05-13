@@ -5,12 +5,21 @@
         </h1>
 
         <p>Here are a few of our partner organizations:</p>
-        <ul>
+        <ul class="org-list">
 
             <% organizations.forEach(organization=> { %>
-                <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong>
+                <li class="org-card">
+                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                    <strong>
                         <%= organization.name %>
-                    </strong>: <%= organization.contact_email %>
+                    </strong>
+
+                    <!-- This line displays the description you're currently missing -->
+                    <p class="org-description">
+                        <%= organization.description %>
+                    </p>
+
+                    <span class="org-contact">Contact: <%= organization.contact_email %></span>
                 </li>
                 <% }); %>
         </ul>
