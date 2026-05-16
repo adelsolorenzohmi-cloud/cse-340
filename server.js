@@ -4,6 +4,8 @@ import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjects } from './src/models/projects.js';
+import { getAllCategories } from './src/models/categories.js';
+
 
 
 // Recreate __filename and __dirname for ES Modules
@@ -57,9 +59,20 @@ app.get('/projects', async (req, res) => {
 });
 
 // Categories route
-app.get('/categories', async (req, res) => {
-    const title = 'Categories';
-    res.render('categories', { title });
+app.get('/categories', async (req, res, next) => {
+    try {
+        // Call the imported model function to fetch categories from the database
+        const categoriesList = await getAllCategories();
+
+        // Render categories.ejs and pass the array to the view
+        res.render('categories', {
+            title: 'Service Project Categories',
+            categories: categoriesList
+        });
+    } catch (error) {
+        console.error("Route error fetching categories:", error);
+        next(error); // Pass the error along to your Express error handler
+    }
 });
 
 //Start the server

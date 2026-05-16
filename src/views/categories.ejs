@@ -2,13 +2,18 @@
 
     <main>
         <h1>Categories</h1>
-        <ul>
-            <li>Environmental</li>
-            <li>Educational</li>
-            <li>Community Service</li>
-            <li>Health and Wellness</li>
-        </ul>
 
+        <% if (categories && categories.length> 0) { %>
+            <ul>
+                <% categories.forEach(function(category) { %>
+                    <li>
+                        <%= category.category_name %>
+                    </li>
+                    <% }); %>
+            </ul>
+            <% } else { %>
+                <p>No categories found in the database.</p>
+                <% } %>
     </main>
 
     <%- include('partials/footer') %>

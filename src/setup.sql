@@ -61,3 +61,42 @@ VALUES
 (3, 'Youth Mentorship Mixer', 'Connecting students with professional mentors.', 'Public Library', '2026-08-12');
 
 
+-----------------------------------------------------
+-----------------------------------------------------Categories table creation. 
+
+
+-- 1. Create the categories table
+CREATE TABLE IF NOT EXISTS public.categories (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- 2. Create the join table for the many-to-many relationship
+CREATE TABLE IF NOT EXISTS public.project_categories (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES public.service_project (project_id) ON DELETE CASCADE,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES public.categories (category_id) ON DELETE CASCADE
+);
+
+-- 3. Insert at least 3 relevant categories (matching your view)
+INSERT INTO public.categories (category_name) 
+VALUES 
+    ('Environmental'),
+    ('Educational'),
+    ('Community Service'),
+    ('Health and Wellness');
+
+-- 4. Associate your existing projects with at least one category
+-- (Replace '1' and '2' with actual project_ids and category_ids present in your database)
+INSERT INTO public.project_categories (project_id, category_id)
+VALUES 
+    (1, 1), -- Associates project 1 with Environmental
+    (1, 3), -- Associates project 1 with Community Service (Many-to-Many demonstration)
+    (2, 2); -- Associates project 2 with Educational
+
+
+-----------------------------------------------------
+-----------------------------------------------------
+
