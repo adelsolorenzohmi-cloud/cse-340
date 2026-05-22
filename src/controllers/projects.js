@@ -1,5 +1,5 @@
 // Import the needed model functions
-import { getUpcomingProjects, getProjectDetails } from '../models/projects.js';
+import { getUpcomingProjects, getProjectDetails, getCategoriesByProjectId } from '../models/projects.js';
 
 // Configuration constant for the number of upcoming projects to display
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -21,7 +21,7 @@ const showProjectsPage = async (req, res) => {
 // Handler to render a single service project's detail page
 const showProjectDetailsPage = async (req, res) => {
     try {
-        // Extract the service project ID from the URL parameters (e.g., /projects/:id)
+        // Extract the service project ID from the URL parameters
         const { id } = req.params;
 
         // Retrieve the specific project details from the database
@@ -32,8 +32,11 @@ const showProjectDetailsPage = async (req, res) => {
             return res.status(404).send('Project Not Found');
         }
 
-        // Render the project.ejs view, passing the individual project data
-        res.render('project', { title: project.title, project });
+        // Fetch categories/tags for this specific project
+        const categories = await getCategoriesByProjectId(id);
+
+        // Render the project.ejs view, passing the individual project data and categories
+        res.render('project', { title: project.title, project, categories });
     } catch (error) {
         console.error('Error fetching project details:', error);
         res.status(500).send('Internal Server Error');

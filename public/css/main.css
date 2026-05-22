@@ -1,24 +1,17 @@
-/* 
-    CSE 340 Service Network - Main Stylesheet
+/* CSE 340 Service Network - Main Stylesheet
     Professional, Responsive, and Accessible Design
 */
 
 /* --- Professional Design Variables --- */
 :root {
     --primary: #2563eb;
-    /* Modern Corporate Blue */
     --primary-dark: #1d4ed8;
     --secondary: #0f172a;
-    /* Deep Slate for Headers/Footers */
     --accent: #38bdf8;
-    /* Light Blue for interactive elements */
     --bg-page: #f8fafc;
-    /* Clean, soft background */
     --bg-card: #ffffff;
     --text-main: #1e293b;
-    /* High-contrast slate */
     --text-muted: #475569;
-    /* Muted gray for secondary text */
     --white: #ffffff;
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -110,6 +103,14 @@ h2 {
     font-weight: 600;
 }
 
+p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+}
+
 /* --- Home Page Specifics --- */
 .main-logo {
     display: block;
@@ -126,7 +127,6 @@ h2 {
 }
 
 /* --- Organizations Page (Card Grid) --- */
-/* Targets the UL inside organizations.ejs */
 main h1+p+ul {
     list-style: none;
     display: grid;
@@ -160,81 +160,6 @@ main h1+p+ul img {
     margin-bottom: 1rem;
 }
 
-/* --- Projects Page (Accent Rows) --- */
-/* Targets the list following the H2 on projects.ejs */
-main h2+ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 850px;
-    margin: 2rem auto;
-}
-
-main h2+ul li {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 5px solid var(--primary);
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-}
-
-main h2+ul li:hover {
-    transform: translateX(8px);
-    background-color: var(--white);
-    border-left-color: var(--accent);
-}
-
-/* --- Categories Page (Interactive Pill Tiles) --- */
-main h1+ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-}
-
-main h1+ul li {
-    background: var(--white);
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    font-weight: 700;
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-main h1+ul li:hover {
-    background: var(--primary);
-    color: var(--white);
-    transform: scale(1.05);
-}
-
-/* --- Footer --- */
-
-footer {
-    background-color: var(--secondary) !important;
-    color: #ffffff !important;
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    font-size: 1rem;
-    margin-top: auto;
-    opacity: 1 !important;
-}
-
-/* --- Global Utilities & Responsive Adjustments --- */
-p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 0 auto 1.5rem auto;
-    text-align: center;
-}
-
-/* --- Organizations styling */
 .org-card {
     display: flex;
     flex-direction: column;
@@ -249,6 +174,123 @@ p {
     width: 100%;
 }
 
+/* --- Projects Page (Modern Card Grid) --- */
+.projects-container {
+    max-width: var(--max-width);
+    margin: 3rem auto;
+}
+
+.project-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding: 0;
+}
+
+.project-list li {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.project-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+    background-color: var(--white);
+}
+
+.project-list li a {
+    color: var(--primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.project-list li:hover a {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.project-list li p {
+    color: var(--text-main);
+    font-size: 1rem;
+    margin: 0.5rem 0 1.25rem 0;
+    text-align: center;
+}
+
+.project-list li small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: auto;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 0.75rem;
+    display: block;
+}
+
+/* --- Categories Page (Interactive Pill Tiles) --- */
+main h1+ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+    padding: 0;
+}
+
+main h1+ul li {
+    background: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Premium, smooth hover interaction */
+main h1+ul li:hover {
+    background: #eff6ff;
+    color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* --- Footer --- */
+footer,
+footer * {
+    background-color: var(--secondary) !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+footer {
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: auto;
+}
+
+/* --- Responsive Adjustments --- */
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
@@ -263,4 +305,67 @@ p {
     main {
         margin: 1.5rem auto;
     }
+}
+
+/* --- Single Organization Details Page Styling --- */
+main h1+h2 {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+
+/* Center and style the organization logo */
+main img[alt*="logo"] {
+    display: block;
+    max-width: 150px;
+    height: auto;
+    margin: 2rem auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+}
+
+/* Center the project block area */
+main h3 {
+    color: var(--secondary);
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Style the project links into a clean, centered list block */
+main h3+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Style individual list items as subtle interactive links */
+main h3+ul li {
+    background: var(--white);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+main h3+ul li:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+main h3+ul li a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+main h3+ul li a:hover {
+    color: var(--primary-dark);
 }

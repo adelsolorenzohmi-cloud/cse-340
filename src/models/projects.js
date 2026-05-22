@@ -39,27 +39,6 @@ const getProjectsByOrganizationId = async (organizationId) => {
   return result.rows;
 };
 
-
-const getProjectsByOrganizationId = async (organizationId) => {
-  const query = `
-    SELECT
-      project_id,
-      organization_id,
-      project_title,
-      project_description,
-      project_location,
-      project_date
-    FROM public.service_project
-    WHERE organization_id = $1
-    ORDER BY project_date;
-  `;
-
-  const queryParams = [organizationId];
-  const result = await db.query(query, queryParams);
-
-  return result.rows;
-};
-
 /**
  * Retrieves the next N upcoming service projects from the database.
  * Filters for projects happening today or in the future.
@@ -120,10 +99,32 @@ const getProjectDetails = async (id) => {
   return result.rows[0] || null;
 };
 
+/**
+ * Retrieve all categories for a given service project.
+ * @param {number|string} projectId - The unique ID of the service project.
+ * @returns {Promise<Array>} Array of category objects linked to the project.
+ */
+const getCategoriesByProjectId = async (projectId) => {
+  const query = `
+    SELECT 
+      c.category_id,
+      c.category_name
+    FROM public.categories c
+    INNER JOIN public.project_categories pc ON c.category_id = pc.category_id
+    WHERE pc.project_id = $1
+    ORDER BY c.category_name ASC;
+  `;
+
+  const queryParams = [projectId];
+  const result = await db.query(query, queryParams);
+  return result.rows;
+};
+
 // Export all the model functions
 export {
   getAllProjects,
   getProjectsByOrganizationId,
   getUpcomingProjects,
-  getProjectDetails
+  getProjectDetails,
+  getCategoriesByProjectId
 };
