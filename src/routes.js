@@ -1,14 +1,27 @@
 import express from 'express';
-import { showHomePage } from './controllers/index.js';
-import { showOrganizationsPage, showOrganizationDetailsPage } from './controllers/organizations.js';
-import { showProjectsPage, showProjectDetailsPage } from './controllers/projects.js';
-import { showCategoriesPage, showCategoryDetailsPage } from './controllers/categories.js';
+import { showHomePage } from './controllers/index.js';  
 import { testErrorPage } from './controllers/errors.js';
-import { showNewOrganizationForm } from './controllers/organizations.js';
-import { processNewOrganizationForm } from './controllers/organizations.js';
-import { organizationValidation } from './controllers/organizations.js';
-import { showEditOrganizationForm } from './controllers/organizations.js';
-import { processEditOrganizationForm } from './controllers/organizations.js';
+import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm } from './controllers/categories.js';
+
+// Cleaned up and consolidated Organizations Imports
+import {
+    showOrganizationsPage,
+    showOrganizationDetailsPage,
+    showNewOrganizationForm,
+    processNewOrganizationForm,
+    organizationValidation,
+    showEditOrganizationForm,
+    processEditOrganizationForm
+} from './controllers/organizations.js';
+
+// Cleaned up and consolidated Projects Imports (Including projectValidation)
+import {
+    showProjectsPage,
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
+} from './controllers/projects.js';
 
 const router = express.Router();
 
@@ -41,6 +54,16 @@ router.get('/edit-organization/:id', showEditOrganizationForm);
 
 // Route to handle the edit organization form submission
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+
+// Route for new project page
+router.get('/new-project', showNewProjectForm);
+
+// Route to handle new project form submission with validation middleware injected
+router.post('/new-project', projectValidation, processNewProjectForm);
+
+// Routes to handle the assign categories to project form
+router.get('/project/:projectId/assign-categories', showAssignCategoriesForm);
+router.post('/project/:projectId/assign-categories', processAssignCategoriesForm);
 
 
 export default router;

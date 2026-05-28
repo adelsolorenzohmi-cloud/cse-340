@@ -58,3 +58,45 @@ export async function getProjectsByCategoryId(categoryId) {
         throw error;
     }
 }
+
+
+
+const assignCategoryToProject = async (projectId, categoryId) => {
+    const sql = `
+        INSERT INTO public.project_categories (project_id, category_id)
+        VALUES ($1, $2);
+    `;
+    await pool.query(sql, [projectId, categoryId]);
+};
+
+/**
+ * Clear existing assignments and write fresh associations
+ * Matches table: public.project_categories
+ */
+export async function updateCategoryAssignments(projectId, categoryIds) {
+    try {
+        // 1. Clear out the old combinations for this project
+        const deleteSql = `
+            DELETE FROM public.project_categories
+            WHERE project_id = $1;
+        `;
+        await pool.query(deleteSql, [projectId]);
+
+        // If the user unchecked everything, we are done
+        if (!categoryIds || categoryIds.length === 0) {
+            return;
+        }
+
+        // Express submits a single checkbox as a string, multiple as an Array.
+        // This converts strings to arrays so the 'for...of' loop never crashes.
+        const normalizedIds = Array.isArray(categoryIds) ? categoryIds : [categoryIds];
+
+        // 2. Loop and run our helper function for each checked item
+        for (const categoryId of normalizedIds) {
+            await assignCategoryToProject(projectId, categoryId);
+        }
+    } catch (error) {
+        console.error("Error in updateCategoryAssignments model:", error);
+        throw error;
+    }
+}
