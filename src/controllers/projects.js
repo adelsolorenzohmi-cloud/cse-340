@@ -1,5 +1,5 @@
 // Import the needed model functions
-import { getUpcomingProjects, getProjectDetails, getCategoriesByProjectId, createProject } from '../models/projects.js';
+import { getUpcomingProjects, getProjectDetails, getCategoriesByProjectId, createProject, updateProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 
 // Import express-validator functions
@@ -100,11 +100,79 @@ const processNewProjectForm = async (req, res) => {
     }
 };
 
+// Show the edit project form pre-populated with data
+const showEditProjectForm = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await getProjectDetails(id);
+
+        if (!project) {
+            req.flash('error', 'Project not found.');
+            return res.redirect('/projects');
+        }
+
+        const organizations = await getAllOrganizations();
+        const title = `Edit Project: ${project.title}`;
+
+        // Added the messages object here to clear the ReferenceError in your EJS view
+        res.render('update-project', {
+            title,
+            project,
+            organizations,
+            messages: {
+                error: req.flash('error'),
+                success: req.flash('success')
+            }
+        });
+    } catch (error) {
+        console.error('Error rendering edit project form:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+// Process the edit project form submission
+const processEditProjectForm = async (req, res) => {
+    const { id } = req.params;
+
+    // Run the request through validation rules
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect(`/edit-project/${id}`);
+    }
+
+    // Destructure properties matching your database mapping architecture
+    const { title, description, location, date, organizationId } = req.body;
+
+    try {
+        const projectData = {
+            project_title: title,
+            project_description: description,
+            project_location: location,
+            project_date: date,
+            organization_id: organizationId
+        };
+
+        await updateProject(id, projectData);
+
+        req.flash('success', 'Service project updated successfully!');
+        res.redirect(`/project/${id}`);
+    } catch (error) {
+        console.error('Error updating project:', error);
+        req.flash('error', 'There was an error updating the service project.');
+        res.redirect(`/edit-project/${id}`);
+    }
+};
+
 // Export the controller functions and the validation array for routing use
 export {
     showProjectsPage,
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+    processEditProjectForm
 };

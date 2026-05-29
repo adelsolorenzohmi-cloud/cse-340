@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+    <main class="container">
+        <h1>
+            <%= title %>
+        </h1>
+
+        <% if (messages && messages.error) { %>
+            <div class="alert alert-danger">
+                <% messages.error.forEach(function(msg) { %>
+                    <p>
+                        <%= msg %>
+                    </p>
+                    <% }) %>
+            </div>
+            <% } %>
+
+                <form action="/edit-project/<%= project.project_id %>" method="POST" class="form-stack">
+
+                    <div class="form-group">
+                        <label for="title">Project Title:</label>
+                        <input type="text" id="title" name="title" value="<%= project.title %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="5"
+                            required><%= project.description %></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" value="<%= project.location %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <% let formattedDate='' ; if (project.date) { const dateObj=new Date(project.date); if
+                            (!isNaN(dateObj.getTime())) { formattedDate=dateObj.toISOString().split('T')[0]; } } %>
+                            <input type="date" id="date" name="date" value="<%= formattedDate %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organizationId">Organization:</label>
+                        <select id="organizationId" name="organizationId" required>
+                            <option value="">-- Select Organization --</option>
+                            <% organizations.forEach(function(org) { %>
+                                <% const currentOrgId=org.organization_id || org.org_id || org.id; const
+                                    targetProjectOrgId=project.organization_id || project.org_id; const
+                                    currentOrgName=org.organization_name || org.org_name || org.name || org.title; const
+                                    isSelected=(currentOrgId==targetProjectOrgId) ? 'selected' : '' ; %>
+                                    <option value="<%= currentOrgId %>" <%=isSelected %>>
+                                        <%= currentOrgName %>
+                                    </option>
+                                    <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Update Project</button>
+                        <a href="/project/<%= project.project_id %>" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+    </main>
+
+    <%- include('partials/footer') %>

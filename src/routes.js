@@ -3,7 +3,7 @@ import { showHomePage } from './controllers/index.js';
 import { testErrorPage } from './controllers/errors.js';
 import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm } from './controllers/categories.js';
 
-// Cleaned up and consolidated Organizations Imports
+// Organizations Imports
 import {
     showOrganizationsPage,
     showOrganizationDetailsPage,
@@ -14,13 +14,15 @@ import {
     processEditOrganizationForm
 } from './controllers/organizations.js';
 
-// Cleaned up and consolidated Projects Imports (Including projectValidation)
+// Projects Imports 
 import {
     showProjectsPage,
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+    processEditProjectForm
 } from './controllers/projects.js';
 
 const router = express.Router();
@@ -64,6 +66,10 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 // Routes to handle the assign categories to project form
 router.get('/project/:projectId/assign-categories', showAssignCategoriesForm);
 router.post('/project/:projectId/assign-categories', processAssignCategoriesForm);
+
+//Routes to handle editing service projects ---
+router.get('/edit-project/:id', showEditProjectForm);
+router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 
 
 export default router;
