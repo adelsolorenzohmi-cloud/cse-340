@@ -1,7 +1,18 @@
 import express from 'express';
-import { showHomePage } from './controllers/index.js';  
+import { showHomePage } from './controllers/index.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm } from './controllers/categories.js';
+
+// Categories Imports
+import {
+    showCategoriesPage,
+    showCategoryDetailsPage,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm,
+    showCreateCategoryForm,
+    processCreateCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm
+} from './controllers/categories.js';
 
 // Organizations Imports
 import {
@@ -34,6 +45,12 @@ router.get('/categories', showCategoriesPage);
 
 // New Category details route
 router.get('/category/:id', showCategoryDetailsPage);
+
+// Service Categories Management Routes
+router.get('/new-category', showCreateCategoryForm);
+router.post('/new-category', processCreateCategoryForm);
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', processEditCategoryForm);
 
 // Service Projects routes
 router.get('/projects', showProjectsPage);

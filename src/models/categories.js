@@ -59,7 +59,47 @@ export async function getProjectsByCategoryId(categoryId) {
     }
 }
 
+/**
+ * Insert a brand new category into the database.
+ * @param {string} category_name
+ * @returns {Promise<Object>} The created category object
+ */
+export async function createCategory(category_name) {
+    try {
+        const sql = `
+            INSERT INTO public.categories (category_name) 
+            VALUES ($1) 
+            RETURNING category_id, category_name;
+        `;
+        const data = await pool.query(sql, [category_name]);
+        return data.rows[0];
+    } catch (error) {
+        console.error("Error in createCategory model:", error);
+        throw error;
+    }
+}
 
+/**
+ * Update an existing category name by its ID.
+ * @param {number|string} categoryId
+ * @param {string} category_name
+ * @returns {Promise<Object>} The updated category object
+ */
+export async function updateCategory(categoryId, category_name) {
+    try {
+        const sql = `
+            UPDATE public.categories 
+            SET category_name = $1 
+            WHERE category_id = $2 
+            RETURNING category_id, category_name;
+        `;
+        const data = await pool.query(sql, [category_name, categoryId]);
+        return data.rows[0];
+    } catch (error) {
+        console.error("Error in updateCategory model:", error);
+        throw error;
+    }
+}
 
 const assignCategoryToProject = async (projectId, categoryId) => {
     const sql = `

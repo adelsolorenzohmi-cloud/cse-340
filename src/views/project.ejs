@@ -37,9 +37,10 @@
             </div>
             <% } %>
 
-                <div class="project-actions" style="margin-top: 30px; display: flex; gap: 15px;">
-                    <a href="/edit-project/<%= project.project_id %>" class="btn-edit">Edit Project</a>
-                    <a href="/project/<%= project.project_id %>/assign-categories" class="btn-edit">Edit Categories</a>
+                <div class="project-actions">
+                    <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
+                    <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit
+                        Categories</a>
                 </div>
     </main>
 

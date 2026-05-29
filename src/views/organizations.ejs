@@ -1,11 +1,16 @@
 <%- include('partials/header') %>
 
     <main>
+        <div class="cta-container">
+            <a href="/new-organization" class="btn-primary">Add a New Organization</a>
+        </div>
+
         <h1>
             <%= title %>
         </h1>
 
         <p>Here are a few of our partner organizations:</p>
+
         <ul class="org-list">
             <% organizations.forEach(organization=> { %>
                 <li class="org-card">
@@ -25,7 +30,6 @@
                 </li>
                 <% }); %>
         </ul>
-        <p><a href="/new-organization">Add a new organization</a></p>
     </main>
 
     <%- include('partials/footer') %>

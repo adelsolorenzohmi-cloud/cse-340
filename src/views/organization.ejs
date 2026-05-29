@@ -1,6 +1,11 @@
 <%- include('partials/header') %>
 
     <main>
+        <div class="cta-container">
+            <a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn-primary">Edit
+                Organization</a>
+        </div>
+
         <h1>
             <%= title %>
         </h1>
@@ -23,8 +28,6 @@
                 </li>
                 <% }) %>
         </ul>
-
-        <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
 
     </main>
 
