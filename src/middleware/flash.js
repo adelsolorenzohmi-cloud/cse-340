@@ -74,19 +74,14 @@ const flashMiddleware = (req, res, next) => {
 
 /**
  * Make flash function available to all templates via res.locals
- * This middleware must run AFTER flashMiddleware
  */
 const flashLocals = (req, res, next) => {
-    // Attach the flash function to res.locals so templates can access it
-    // The function is NOT called here, just made available
-    // Messages are only consumed when a template calls flash()
     res.locals.flash = req.flash;
     next();
 }
 
 /**
  * Combined flash middleware that runs both functions in the correct order
- * Import and use this as a single middleware function in your application
  */
 const flash = (req, res, next) => {
     flashMiddleware(req, res, () => {
