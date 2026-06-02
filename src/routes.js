@@ -36,6 +36,12 @@ import {
     processEditProjectForm
 } from './controllers/projects.js';
 
+// Users import. 
+import {
+    showUserRegistrationForm,
+    processUserRegistrationForm
+} from './controllers/users.js';
+
 const router = express.Router();
 
 // Core landing routes
@@ -87,6 +93,10 @@ router.post('/project/:projectId/assign-categories', processAssignCategoriesForm
 //Routes to handle editing service projects ---
 router.get('/edit-project/:id', showEditProjectForm);
 router.post('/edit-project/:id', projectValidation, processEditProjectForm);
+
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
 
 
 export default router;
