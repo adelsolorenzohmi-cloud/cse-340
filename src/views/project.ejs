@@ -1,6 +1,7 @@
 <%- include('partials/header') %>
 
     <main class="project-details">
+        <% if (user && user.role_name==='admin' ) { %>
         <h1>
             <%= project.title %>
         </h1>

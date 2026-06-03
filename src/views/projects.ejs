@@ -1,6 +1,7 @@
 <%- include('partials/header') %>
 
     <main class="projects-container">
+        <% if (user && user.role_name==='admin' ) { %>
         <h1>Upcoming Service Projects</h1>
 
         <% if (projects && projects.length> 0) { %>
