@@ -2,34 +2,40 @@
 
     <main>
         <% if (user && user.role_name==='admin' ) { %>
-        <div class="cta-container">
-            <a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn-primary">Edit
-                Organization</a>
-        </div>
+            <div class="page-header">
+                <div class="page-header__titles">
+                    <h1>
+                        <%= title %>
+                    </h1>
+                </div>
+                <a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn-primary">Edit
+                    Organization</a>
+            </div>
+            <% } else { %>
+                <h1>
+                    <%= title %>
+                </h1>
+                <% } %>
 
-        <h1>
-            <%= title %>
-        </h1>
+                    <h2>
+                        <%= organizationDetails.name %>
+                    </h2>
+                    <img src="/images/<%= organizationDetails.logo_filename %>"
+                        alt="<%= organizationDetails.name %> logo">
 
-        <h2>
-            <%= organizationDetails.name %>
-        </h2>
-        <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+                    <p>Description: <%= organizationDetails.description %>
+                    </p>
 
-        <p>Description: <%= organizationDetails.description %>
-        </p>
-
-        <h3>Service Projects</h3>
-        <ul>
-            <% projects.forEach(project=> { %>
-                <li>
-                    <a href="/project/<%= project.project_id %>">
-                        <%= project.project_title %>
-                    </a>
-                </li>
-                <% }) %>
-        </ul>
-
+                    <h3>Service Projects</h3>
+                    <ul>
+                        <% projects.forEach(project=> { %>
+                            <li>
+                                <a href="/project/<%= project.project_id %>">
+                                    <%= project.project_title %>
+                                </a>
+                            </li>
+                            <% }); %>
+                    </ul>
     </main>
 
     <%- include('partials/footer') %>

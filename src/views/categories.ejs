@@ -1,22 +1,31 @@
 <%- include('partials/header') %>
 
     <main>
+        
         <% if (user && user.role_name==='admin' ) { %>
-        <h1>Categories</h1>
-
-        <% if (categories && categories.length> 0) { %>
-            <ul>
-                <% categories.forEach(function(category) { %>
-                    <li>
-                        <a href="/category/<%= category.category_id %>">
-                            <%= category.category_name %>
-                        </a>
-                    </li>
-                    <% }); %>
-            </ul>
+            <div class="page-header">
+                <div class="page-header__titles">
+                    <h1>Categories</h1>
+                </div>
+                <a href="/new-category" class="btn-primary">+ Add New Category</a>
+            </div>
             <% } else { %>
-                <p>No categories found in the database.</p>
+                <h1>Categories</h1>
                 <% } %>
+
+                    <% if (categories && categories.length> 0) { %>
+                        <ul class="category-list">
+                            <% categories.forEach(function(category) { %>
+                                <li>
+                                    <a href="/category/<%= category.category_id %>">
+                                        <%= category.category_name %>
+                                    </a>
+                                </li>
+                                <% }); %>
+                        </>
+                        <% } else { %>
+                            <p>No categories found in the database.</p>
+                            <% } %>
     </main>
 
     <%- include('partials/footer') %>

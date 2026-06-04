@@ -2,35 +2,44 @@
 
     <main>
         <% if (user && user.role_name==='admin' ) { %>
-        <div class="cta-container">
-            <a href="/new-organization" class="btn-primary">Add a New Organization</a>
-        </div>
+            <div class="page-header">
+                <div class="page-header__titles">
+                    <h1>
+                        <%= title %>
+                    </h1>
+                    <p>Here are a few of our partner organizations:</p>
+                </div>
+                <a href="/new-organization" class="btn-primary">+ Add New Organization</a>
+            </div>
+            <% } else { %>
+                <h1>
+                    <%= title %>
+                </h1>
+                <p>Here are a few of our partner organizations:</p>
+                <% } %>
 
-        <h1>
-            <%= title %>
-        </h1>
+                    <ul class="org-list">
+                        <% organizations.forEach(organization=> { %>
+                            <li class="org-card">
+                                <img src="/images/<%= organization.logo_filename %>"
+                                    alt="<%= organization.name %> logo">
 
-        <p>Here are a few of our partner organizations:</p>
+                                <a href="/organization/<%= organization.organization_id %>" class="org-name">
+                                    <%= organization.name %>
+                                </a>
 
-        <ul class="org-list">
-            <% organizations.forEach(organization=> { %>
-                <li class="org-card">
-                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                                <p class="org-description">
+                                    <%= organization.description %>
+                                </p>
 
-                    <strong>
-                        <a href="/organization/<%= organization.organization_id %>">
-                            <%= organization.name %>
-                        </a>
-                    </strong>
-
-                    <p class="org-description">
-                        <%= organization.description %>
-                    </p>
-
-                    <span class="org-contact">Contact: <%= organization.contact_email %></span>
-                </li>
-                <% }); %>
-        </ul>
+                                <span class="org-contact">
+                                    <a href="mailto:<%= organization.contact_email %>">
+                                        <%= organization.contact_email %>
+                                    </a>
+                                </span>
+                            </li>
+                            <% }); %>
+                    </ul>
     </main>
 
     <%- include('partials/footer') %>

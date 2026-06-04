@@ -127,7 +127,7 @@ p {
 }
 
 /* --- Organizations Page (Card Grid) --- */
-main h1+p+ul {
+.org-list {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -135,7 +135,7 @@ main h1+p+ul {
     margin-top: 2rem;
 }
 
-main h1+p+ul li {
+.org-list li {
     background: var(--bg-card);
     padding: 2rem;
     border-radius: var(--border-radius);
@@ -148,13 +148,13 @@ main h1+p+ul li {
     transition: var(--transition);
 }
 
-main h1+p+ul li:hover {
+.org-list li:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
     border-color: var(--accent);
 }
 
-main h1+p+ul img {
+.org-list img {
     height: 60px;
     width: auto;
     margin-bottom: 1rem;
@@ -241,17 +241,17 @@ main h1+p+ul img {
 }
 
 /* --- Categories Page (Interactive Pill Tiles) --- */
-main h1+ul {
+.category-list {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.25rem;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     padding: 0;
 }
 
-main h1+ul li {
+.category-list li {
     background: var(--white);
     padding: 0.85rem 2rem;
     border-radius: 50px;
@@ -265,7 +265,7 @@ main h1+ul li {
     text-align: center;
 }
 
-main h1+ul li:hover {
+.category-list li:hover {
     background: #eff6ff;
     color: var(--primary-dark);
     border-color: var(--primary-dark);
@@ -407,11 +407,23 @@ main h3+ul li a:hover {
     border-color: #bee5eb;
 }
 
-/* ---Button Layout for Organizations Page --- */
-.cta-container {
+/* --- Page Header: Title + Action Button Row --- */
+.page-header {
     display: flex;
     justify-content: center;
-    margin: 0 auto 2.5rem auto;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.page-header__titles h1 {
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.page-header__titles p {
+    text-align: left;
+    margin: 0;
 }
 
 .btn-primary {
@@ -467,7 +479,10 @@ main form {
 }
 
 .form-group input[type="text"],
+.form-group input[type="date"],
+.form-group select,
 main form input[type="email"],
+main form input[type="password"],
 main form textarea {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -482,7 +497,10 @@ main form textarea {
 }
 
 .form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus,
+.form-group select:focus,
 main form input[type="email"]:focus,
+main form input[type="password"]:focus,
 main form textarea:focus {
     outline: none;
     border-color: var(--primary);

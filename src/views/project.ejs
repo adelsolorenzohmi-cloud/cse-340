@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
     <main class="project-details">
-        <% if (user && user.role_name==='admin' ) { %>
+
         <h1>
             <%= project.title %>
         </h1>
@@ -10,15 +10,21 @@
             <%= project.description %>
         </p>
 
-        <ul class="meta-info">
-            <li><strong>Date:</strong>
-                <%= new Date(project.date).toLocaleDateString() %>
+        <ul class="org-list">
+            <li class="org-card">
+                <strong>Date</strong>
+                <span>
+                    <%= new Date(project.date).toLocaleDateString() %>
+                </span>
             </li>
-            <li><strong>Location:</strong>
-                <%= project.location %>
+            <li class="org-card">
+                <strong>Location</strong>
+                <span>
+                    <%= project.location %>
+                </span>
             </li>
-            <li>
-                <strong>Organized by:</strong>
+            <li class="org-card">
+                <strong>Organized by</strong>
                 <a href="/organization/<%= project.organization_id %>">
                     <%= project.organization_name %>
                 </a>
@@ -38,11 +44,13 @@
             </div>
             <% } %>
 
-                <div class="project-actions">
-                    <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
-                    <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit
-                        Categories</a>
-                </div>
+                <% if (user && user.role_name==='admin' ) { %>
+                    <div class="project-actions">
+                        <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
+                        <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit
+                            Categories</a>
+                    </div>
+                    <% } %>
     </main>
 
     <%- include('partials/footer') %>

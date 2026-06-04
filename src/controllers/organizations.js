@@ -34,7 +34,11 @@ const showOrganizationsPage = async (req, res) => {
     const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
 
-    res.render('organizations', { title, organizations });
+    res.render('organizations', {
+        title,
+        organizations,
+        user: req.session.user || null
+    });
 };
 
 const showOrganizationDetailsPage = async (req, res) => {
