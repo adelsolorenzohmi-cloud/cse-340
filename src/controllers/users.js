@@ -80,7 +80,8 @@ const showDashboard = (req, res) => {
     res.render('dashboard', {
         title: 'Dashboard',
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: role_name
     });
 };
 
@@ -110,4 +111,4 @@ const requireRole = (role) => {
     };
 };
 
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard,requireRole };
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole };
