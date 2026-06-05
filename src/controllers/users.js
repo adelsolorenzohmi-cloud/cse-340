@@ -81,7 +81,7 @@ const showDashboard = (req, res) => {
         title: 'Dashboard',
         name: user.name,
         email: user.email,
-        role: role_name
+        role: user.role_name
     });
 };
 
