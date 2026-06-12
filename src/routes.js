@@ -48,6 +48,9 @@ import {
     requireRole
 } from './controllers/users.js';
 
+//Volunteers import.
+import { processVolunteer, processRemoveVolunteer } from './controllers/volunteers.js';
+
 const router = express.Router();
 
 // Core landing routes
@@ -111,5 +114,9 @@ router.get('/logout', processLogout);
 
 // Protected dashboard route
 router.get('/dashboard', requireLogin, showDashboard);
+
+//Volunteer routes.
+router.post('/project/:id/volunteer', requireLogin, processVolunteer);
+router.post('/project/:id/unvolunteer', requireLogin, processRemoveVolunteer);
 
 export default router;

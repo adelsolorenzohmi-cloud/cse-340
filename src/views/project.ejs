@@ -51,6 +51,23 @@
                             Categories</a>
                     </div>
                     <% } %>
+
+                        <% if (isLoggedIn) { %>
+                            <div class="project-actions">
+                                <% if (isVolunteering) { %>
+                                    <p>You are volunteering for this project.</p>
+                                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                                        <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
+                                    </form>
+                                    <% } else { %>
+                                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                            <button type="submit" class="btn-primary">Volunteer for this
+                                                Project</button>
+                                        </form>
+                                        <% } %>
+                            </div>
+                            <% } %>
+
     </main>
 
     <%- include('partials/footer') %>

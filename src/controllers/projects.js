@@ -1,6 +1,7 @@
 // Import the needed model functions
 import { getUpcomingProjects, getProjectDetails, getCategoriesByProjectId, createProject, updateProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
+import { isUserVolunteering } from '../models/volunteers.js';
 
 // Import express-validator functions
 import { body, validationResult } from 'express-validator';
@@ -54,8 +55,15 @@ const showProjectDetailsPage = async (req, res) => {
         }
 
         const categories = await getCategoriesByProjectId(id);
+        const context = { title: project.title, project, categories };
 
-        res.render('project', { title: project.title, project, categories });
+        // Check if the logged-in user is volunteering for this project
+        let isVolunteering = false;
+        if (req.session.user) {
+            isVolunteering = await isUserVolunteering(req.session.user.user_id, req.params.id);
+        }
+
+        res.render('project', { ...context, isVolunteering });
     } catch (error) {
         console.error('Error fetching project details:', error);
         res.status(500).send('Internal Server Error');
