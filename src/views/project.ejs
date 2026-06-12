@@ -8,29 +8,57 @@
             <%= project.project_description %>
         </p>
 
-        <div class="project-info">
-            <p><strong>Date:</strong>
-                <%= project.project_date %>
-            </p>
-            <p><strong>Location:</strong>
-                <%= project.project_location %>
-            </p>
+        <div class="org-list">
+            <li>
+                <strong>Date</strong>
+                <p>
+                    <%= project.project_date.toDateString() %>
+                </p>
+            </li>
+            <li>
+                <strong>Location</strong>
+                <p>
+                    <%= project.project_location %>
+                </p>
+            </li>
+            <li>
+                <strong>Organized by</strong>
+                <p>
+                    <%= project.organization_name %>
+                </p>
+            </li>
         </div>
 
-        <% if (isLoggedIn) { %>
-            <div class="project-actions">
-                <% if (isVolunteering) { %>
-                    <p>You are volunteering for this project.</p>
-                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
-                        <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
-                    </form>
-                    <% } else { %>
-                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
-                            <button type="submit" class="btn-primary">Volunteer for this Project</button>
-                        </form>
-                        <% } %>
-            </div>
-            <% } %>
+        <h3>Categories</h3>
+        <ul class="category-list">
+            <% projectCategories.forEach(category=> { %>
+                <li>
+                    <%= category.category_name %>
+                </li>
+                <% }) %>
+        </ul>
+
+        <div class="project-actions">
+            <% if (isLoggedIn && user.role==='admin' ) { %>
+                <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
+                <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit Categories</a>
+                <% } %>
+
+                    <% if (isLoggedIn) { %>
+                        <% if (isVolunteering) { %>
+                            <div class="volunteer-status">
+                                <p>You are volunteering for this project.</p>
+                                <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                                    <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
+                                </form>
+                            </div>
+                            <% } else { %>
+                                <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                    <button type="submit" class="btn-primary">Volunteer for this Project</button>
+                                </form>
+                                <% } %>
+                                    <% } %>
+        </div>
     </main>
 
     <%- include('partials/footer') %>

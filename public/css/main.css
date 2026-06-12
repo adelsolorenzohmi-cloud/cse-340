@@ -642,11 +642,18 @@ main.project-details .project-actions .btn-secondary:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    margin: 2rem 0;
+    margin: 3rem 0;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
 }
 
-.admin-actions,
-.volunteer-actions {
-    display: flex;
-    gap: 0.5rem;
+.project-actions form {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.volunteer-status {
+    text-align: center;
 }
