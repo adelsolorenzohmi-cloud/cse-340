@@ -8,6 +8,15 @@
             <%= project.project_description %>
         </p>
 
+        <div class="project-info">
+            <p><strong>Date:</strong>
+                <%= project.project_date %>
+            </p>
+            <p><strong>Location:</strong>
+                <%= project.project_location %>
+            </p>
+        </div>
+
         <% if (isLoggedIn) { %>
             <div class="project-actions">
                 <% if (isVolunteering) { %>
