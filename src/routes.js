@@ -45,7 +45,8 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
 } from './controllers/users.js';
 
 //Volunteers import.
@@ -114,6 +115,9 @@ router.get('/logout', processLogout);
 
 // Protected dashboard route
 router.get('/dashboard', requireLogin, showDashboard);
+
+// Admin users page route
+router.get('/users', requireLogin, requireRole('admin'), showUsersPage);
 
 //Volunteer routes.
 router.post('/project/:id/volunteer', requireLogin, processVolunteer);

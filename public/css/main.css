@@ -664,3 +664,38 @@ main.project-details .project-actions .btn-secondary:hover {
 .volunteer-status {
     text-align: center;
 }
+
+/* --- Users Table --- */
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.users-table th,
+.users-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.users-table th {
+    background-color: var(--secondary);
+    color: var(--white);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
+}
+
+.users-table tr:hover td {
+    background-color: #f8fafc;
+}

@@ -5,19 +5,25 @@
             <%= title %>
         </h1>
 
-        <h2>Your Volunteered Projects</h2>
-        <ul class="project-list">
-            <% projects.forEach(project=> { %>
-                <li>
-                    <h3>
-                        <%= project.project_title %>
-                    </h3>
-                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
-                        <button type="submit" class="btn-secondary">Remove</button>
-                    </form>
-                </li>
-                <% }) %>
-        </ul>
+        <% if (user && user.role_name==='admin' ) { %>
+            <div class="project-actions">
+                <a href="/users" class="btn-primary">View All Users</a>
+            </div>
+            <% } %>
+
+                <h2>Your Volunteered Projects</h2>
+                <ul class="project-list">
+                    <% projects.forEach(project=> { %>
+                        <li>
+                            <h3>
+                                <%= project.project_title %>
+                            </h3>
+                            <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                                <button type="submit" class="btn-secondary">Remove</button>
+                            </form>
+                        </li>
+                        <% }) %>
+                </ul>
 
     </main>
 
