@@ -642,9 +642,16 @@ main.project-details .project-actions .btn-secondary:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
-    margin: 3rem 0;
+    margin: 2rem 0;
+    padding-top: 0rem;
+    border-top: none;
+}
+
+/* Admin utility actions get the divider */
+.project-details .project-actions:last-of-type {
     padding-top: 2rem;
     border-top: 1px solid #e2e8f0;
+    margin-top: 1rem;
 }
 
 .project-actions form {

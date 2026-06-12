@@ -31,42 +31,45 @@
             </li>
         </ul>
 
-        <% if (categories && categories.length> 0) { %>
-            <div class="project-categories">
-                <h3>Categories</h3>
-                <div class="tags">
-                    <% categories.forEach(function(category) { %>
-                        <a href="/category/<%= category.category_id %>" class="tag">
-                            <%= category.category_name %>
-                        </a>
-                        <% }); %>
+        <%# Primary CTA - Volunteer button right after info cards %>
+            <% if (isLoggedIn) { %>
+                <div class="project-actions">
+                    <% if (isVolunteering) { %>
+                        <p>You are volunteering for this project.</p>
+                        <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                            <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
+                        </form>
+                        <% } else { %>
+                            <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                <button type="submit" class="btn-primary">Volunteer for this Project</button>
+                            </form>
+                            <% } %>
                 </div>
-            </div>
-            <% } %>
+                <% } %>
 
-                <% if (user && user.role_name==='admin' ) { %>
-                    <div class="project-actions">
-                        <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
-                        <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit
-                            Categories</a>
-                    </div>
-                    <% } %>
-
-                        <% if (isLoggedIn) { %>
-                            <div class="project-actions">
-                                <% if (isVolunteering) { %>
-                                    <p>You are volunteering for this project.</p>
-                                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
-                                        <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
-                                    </form>
-                                    <% } else { %>
-                                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
-                                            <button type="submit" class="btn-primary">Volunteer for this
-                                                Project</button>
-                                        </form>
-                                        <% } %>
+                    <%# Secondary info - Categories %>
+                        <% if (categories && categories.length> 0) { %>
+                            <div class="project-categories">
+                                <h3>Categories</h3>
+                                <div class="tags">
+                                    <% categories.forEach(function(category) { %>
+                                        <a href="/category/<%= category.category_id %>" class="tag">
+                                            <%= category.category_name %>
+                                        </a>
+                                        <% }); %>
+                                </div>
                             </div>
                             <% } %>
+
+                                <%# Utility actions - Admin only %>
+                                    <% if (user && user.role_name==='admin' ) { %>
+                                        <div class="project-actions">
+                                            <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit
+                                                Project</a>
+                                            <a href="/project/<%= project.project_id %>/assign-categories"
+                                                class="btn-secondary">Edit Categories</a>
+                                        </div>
+                                        <% } %>
 
     </main>
 
