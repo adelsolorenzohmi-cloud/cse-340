@@ -1,73 +1,23 @@
-<%- include('partials/header') %>
+<div class="project-actions">
+    <% if (isLoggedIn && user.role==='admin' ) { %>
+        <div class="admin-actions">
+            <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
+            <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit Categories</a>
+        </div>
+        <% } %>
 
-    <main class="project-details">
-
-        <h1>
-            <%= project.title %>
-        </h1>
-
-        <p class="description">
-            <%= project.description %>
-        </p>
-
-        <ul class="org-list">
-            <li class="org-card">
-                <strong>Date</strong>
-                <span>
-                    <%= new Date(project.date).toLocaleDateString() %>
-                </span>
-            </li>
-            <li class="org-card">
-                <strong>Location</strong>
-                <span>
-                    <%= project.location %>
-                </span>
-            </li>
-            <li class="org-card">
-                <strong>Organized by</strong>
-                <a href="/organization/<%= project.organization_id %>">
-                    <%= project.organization_name %>
-                </a>
-            </li>
-        </ul>
-
-        <% if (categories && categories.length> 0) { %>
-            <div class="project-categories">
-                <h3>Categories</h3>
-                <div class="tags">
-                    <% categories.forEach(function(category) { %>
-                        <a href="/category/<%= category.category_id %>" class="tag">
-                            <%= category.category_name %>
-                        </a>
-                        <% }); %>
-                </div>
-            </div>
-            <% } %>
-
-                <% if (user && user.role_name==='admin' ) { %>
-                    <div class="project-actions">
-                        <a href="/edit-project/<%= project.project_id %>" class="btn-primary">Edit Project</a>
-                        <a href="/project/<%= project.project_id %>/assign-categories" class="btn-secondary">Edit
-                            Categories</a>
-                    </div>
-                    <% } %>
-
-                        <% if (isLoggedIn) { %>
-                            <div class="project-actions">
-                                <% if (isVolunteering) { %>
-                                    <p>You are volunteering for this project.</p>
-                                    <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
-                                        <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
-                                    </form>
-                                    <% } else { %>
-                                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
-                                            <button type="submit" class="btn-primary">Volunteer for this
-                                                Project</button>
-                                        </form>
-                                        <% } %>
-                            </div>
+            <% if (isLoggedIn) { %>
+                <div class="volunteer-actions">
+                    <% if (isVolunteering) { %>
+                        <p>You are volunteering for this project.</p>
+                        <form action="/project/<%= project.project_id %>/unvolunteer" method="POST">
+                            <button type="submit" class="btn-secondary">Remove Volunteer Status</button>
+                        </form>
+                        <% } else { %>
+                            <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                                <button type="submit" class="btn-primary">Volunteer for this Project</button>
+                            </form>
                             <% } %>
-
-    </main>
-
-    <%- include('partials/footer') %>
+                </div>
+                <% } %>
+</div>
